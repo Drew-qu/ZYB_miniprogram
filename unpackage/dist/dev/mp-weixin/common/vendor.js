@@ -3880,9 +3880,20 @@ module.exports = index_cjs;
   !*** D:/My Dom/前端/进阶学习资料/小程序/HbuilderX/zuoyebang/store/user.js ***!
   \*****************************************************************/
 /*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {
+  namespaced: true,
+  state: function state() {
+    return {
+      classnames: '' };
 
+  },
+  mutations: {
+    saveClassName: function saveClassName(state, className) {
+      state.classnames = className;
+    } } };exports.default = _default;
 
 /***/ }),
 

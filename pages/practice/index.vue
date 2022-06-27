@@ -8,7 +8,7 @@
 			<view class="center"  @click="vibDialog">
 				<view class="nickname">用户昵称</view>
 				<view class="nicknameClass">
-					<text v-if="topClassName">{{topClassName}}</text>
+					<text v-if="classnames">{{classnames}}</text>
 					<text v-else>班级</text>
 				</view>
 			</view>
@@ -34,10 +34,6 @@
 			<view class="rightbox" v-else>右边盒子</view>
 		</view>
 		
-		
-		
-		
-		
 		<view class="m_dialog" v-if="display">
 			<view class="mask"></view>
 			<view class="body">
@@ -57,13 +53,13 @@
 </template>
 
 <script>
+	import {mapState} from 'vuex';
 	export default {
 		data() {
 			return {
 				display: false,
 				ins: 0,
 				className: '',
-				topClassName: '',
 				classes: [
 					{id:1, name: '一年级'},
 					{id:2, name: '二年级'},
@@ -75,6 +71,9 @@
 				checked: true
 			};
 		},
+		computed: {
+			...mapState('m_user', ['classnames'])
+		},
 		methods: {
 			vibDialog() {
 				this.display = !this.display
@@ -85,7 +84,9 @@
 			},
 			vibDialogSub(){
 				this.display = false
-				this.topClassName = this.className
+				// 存入vuex
+				this.$store.commit('m_user/saveClassName', this.className)
+				// console.log(this.classname);
 			},
 			goHistory() {
 				uni.navigateTo({
@@ -175,6 +176,33 @@
 			// border: 1px #f1f1f1 solid; // 删掉
 			height: 800rpx;
 			width: 100%;
+		}
+		.leftbox {
+			.pic {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%,-50%);
+			}
+			.rom {
+				position: absolute;
+				bottom: 325rpx;
+				left: 120rpx;
+				width: 70%;
+				background: #128eff;
+				color: #fff;
+				height: 80rpx;
+				line-height: 80rpx;
+				text-align: center;
+				border-radius: 80rpx;
+			}
+			.text {
+				position: absolute;
+				bottom: 260rpx;
+				left: 190rpx;
+				font-size: 12px;
+				color: #f7bd5d;
+			}
 		}
 	}
 	.tit {

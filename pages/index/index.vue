@@ -9,8 +9,9 @@
 			</view>
 			<view class="center" @click="vibDialog">
 				<view class="nickname">用户昵称</view>
-				<view class="nicknameClass">
-					<text>{{topClassName}}</text>
+				<view class="classname">
+					<text v-if='classnames'>{{classnames}}</text>
+					<text v-else>班级</text>
 				</view>
 			</view>
 			<view class="history" @click="goHistoryList">
@@ -19,7 +20,7 @@
 			</view>
 			<view class="feedback" @click="goFeedback">
 				<uni-icons type="compose" size="38" color="#ffb400"></uni-icons>
-				<view class="feedbackText">反馈</view>
+				<view class="feedbackText" open-type="feedback">反馈</view>
 			</view>
 		</view>
 		
@@ -53,6 +54,7 @@
 </template>
 
 <script>
+	import {mapState} from 'vuex';
 	export default {
 	
 		onLoad() {
@@ -63,7 +65,6 @@
 				display: false,
 				ins: 0,
 				className: '',
-				topClassName: '一年级',
 				classes: [
 					{id:1, name: '一年级'},
 					{id:2, name: '二年级'},
@@ -73,6 +74,9 @@
 					{id:6, name: '六年级'},
 				]
 			};
+		},
+		computed: {
+			...mapState('m_user', ['classnames'])
 		},
 		methods: {
 			// 点击 dialog 显示隐藏
@@ -92,7 +96,9 @@
 			// 点击切换年级确定按钮
 			vibDialogSub(){
 				this.display = false
-				this.topClassName = this.className
+				// 存入vuex
+				this.$store.commit('m_user/saveClassName', this.className)
+				// this.topClassName = this.className
 			},
 			// 点击历史记录按钮
 			goHistoryList() {
