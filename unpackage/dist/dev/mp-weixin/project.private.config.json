@@ -13,6 +13,13 @@
           "query": "",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "口算练习页面",
+          "pathName": "subpkg/pages/practicePages/index",
+          "query": "query=",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }

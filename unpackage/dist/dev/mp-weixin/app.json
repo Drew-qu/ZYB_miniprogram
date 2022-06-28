@@ -11,7 +11,8 @@
         "pages/history/index",
         "pages/practicePages/index",
         "pages/record/index",
-        "pages/historyList/index"
+        "pages/historyList/index",
+        "pages/profile/index"
       ]
     }
   ],

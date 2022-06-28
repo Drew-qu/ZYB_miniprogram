@@ -91,6 +91,32 @@
   height: 800rpx;
   width: 100%;
 }
+.box .leftbox .pic.data-v-3ef4ae92 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+.box .leftbox .rom.data-v-3ef4ae92 {
+  position: absolute;
+  bottom: 325rpx;
+  left: 120rpx;
+  width: 70%;
+  background: #128eff;
+  color: #fff;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  border-radius: 80rpx;
+}
+.box .leftbox .text.data-v-3ef4ae92 {
+  position: absolute;
+  bottom: 260rpx;
+  left: 190rpx;
+  font-size: 12px;
+  color: #f7bd5d;
+}
 .tit.data-v-3ef4ae92 {
   font-size: 20px;
   text-align: center;

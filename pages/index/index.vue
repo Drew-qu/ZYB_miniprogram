@@ -4,23 +4,27 @@
 		<view class="tit">作业帮口算</view>
 		<!-- 头部 -->
 		<view class="header" >
-			<view class="avatar" >
-				<image src="/static/img/VCG211286603775.jpg" mode=""></image>
+			<view class="avatar" @click="getUserInfo">
+				<image :src="userProfile.avatarUrl" mode=""></image>
 			</view>
 			<view class="center" @click="vibDialog">
-				<view class="nickname">用户昵称</view>
-				<view class="nicknameClass">
-					<text>{{topClassName}}</text>
+				<view class="nickname">{{userProfile.nickname}}</view>
+				<view class="classname">
+					<text v-if='classnames'>{{classnames}}</text>
+					<text v-else>班级</text>
 				</view>
 			</view>
 			<view class="history" @click="goHistoryList">
 				<uni-icons type="wallet-filled" size="38" color="#00aaff"></uni-icons>
 				<view class="historyText">历史记录</view>
 			</view>
-			<view class="feedback" @click="goFeedback">
-				<uni-icons type="compose" size="38" color="#ffb400"></uni-icons>
-				<view class="feedbackText">反馈</view>
-			</view>
+			<button open-type="contact" class="feedback">
+				<view>
+					<uni-icons class='icon' type="compose" size="38" color="#ffb400"></uni-icons>
+					<view class="feedbackText" open-type="feedback">反馈</view>
+				</view>
+			</button>
+			
 		</view>
 		
 		<!-- 作业检查 -->
@@ -28,11 +32,6 @@
 			<img src="../../static/img/camera.png" alt="">
 		</view>
 		
-		<!-- 推荐 -->
-		<view class="recom">
-			<uni-icons type="starhalf" size="38" color="#ffc200"></uni-icons>
-			<view class="text">推荐给好友</view>
-		</view>
 		
 		<!-- 弹出 dialog -->
 		<view class="m_dialog" v-if="display">
@@ -53,6 +52,7 @@
 </template>
 
 <script>
+	import {mapState} from 'vuex';
 	export default {
 	
 		onLoad() {
@@ -63,7 +63,6 @@
 				display: false,
 				ins: 0,
 				className: '',
-				topClassName: '一年级',
 				classes: [
 					{id:1, name: '一年级'},
 					{id:2, name: '二年级'},
@@ -71,8 +70,12 @@
 					{id:4, name: '四年级'},
 					{id:5, name: '五年级'},
 					{id:6, name: '六年级'},
-				]
+				],  
 			};
+		},
+		computed: {
+			...mapState('m_user', ['classnames']),
+			...mapState('m_user', ['userProfile'])
 		},
 		methods: {
 			// 点击 dialog 显示隐藏
@@ -92,7 +95,9 @@
 			// 点击切换年级确定按钮
 			vibDialogSub(){
 				this.display = false
-				this.topClassName = this.className
+				// 存入vuex
+				this.$store.commit('m_user/saveClassName', this.className)
+				// this.topClassName = this.className
 			},
 			// 点击历史记录按钮
 			goHistoryList() {
@@ -101,7 +106,7 @@
 				})
 			},
 			// 点击反馈中心按钮
-			goFeedback() {
+			goFeedback(e) {
 				console.log('反馈中心');
 			},
 			// 作业检查按钮
@@ -114,7 +119,15 @@
 					})
 				  }
 				})
+					
+			},
+			// 获取用户信息
+			getuserInfo() {
+				uni.navigateTo({
+					url: '../../subpkg/pages/profile/index'
+				})
 			}
+			
 		}
 	}
 </script>
@@ -158,17 +171,27 @@
 			}
 		}
 		.feedback {
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			align-items: center;
-			margin-left: 50rpx;
-			font-size: 25rpx;
-			color: #626466;
-			.feedbackText {
-				margin-top: 10rpx;
+			background: transparent;
+			border: 0px !important;
+			height: 113rpx;
+			padding: 0;
+			width: 100rpx;
+			right: 0;
+			bottom: 0;
+			line-height: 1;
+			view {
+				z-index: 100;
+			}
+			.feedbackText{
+				font-size: 25rpx;
+				margin-top: 18rpx;
+				color: #626466;
 			}
 		}
+	}
+	
+	.feedback::after {
+		border: 0;
 	}
 	.tit {
 		font-size: 20px;
@@ -248,7 +271,7 @@
 	.work {
 		width: 500rpx;
 		height: 500rpx;
-		position: fixed;
+		position: absolute;
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%);

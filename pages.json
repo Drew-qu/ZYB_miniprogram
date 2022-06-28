@@ -66,6 +66,9 @@
                 ,{
                     "path" : "pages/historyList/index"
                 }
+				,{
+				    "path" : "pages/profile/index"
+				}
             ]
 		}
 	]

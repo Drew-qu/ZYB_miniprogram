@@ -107,7 +107,7 @@ var components
 try {
   components = {
     uniIcons: function() {
-      return Promise.all(/*! import() | uni_modules/uni-icons/components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uni-icons/components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uni-icons/components/uni-icons/uni-icons.vue */ 64))
+      return Promise.all(/*! import() | uni_modules/uni-icons/components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uni-icons/components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uni-icons/components/uni-icons/uni-icons.vue */ 72))
     }
   }
 } catch (e) {
@@ -176,61 +176,61 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var _vuex = __webpack_require__(/*! vuex */ 13);function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var _default =
 {
 
   onLoad: function onLoad() {
@@ -241,7 +241,6 @@ var _default =
       display: false,
       ins: 0,
       className: '',
-      topClassName: '一年级',
       classes: [
       { id: 1, name: '一年级' },
       { id: 2, name: '二年级' },
@@ -252,6 +251,10 @@ var _default =
 
 
   },
+  computed: _objectSpread(_objectSpread({},
+  (0, _vuex.mapState)('m_user', ['classnames'])),
+  (0, _vuex.mapState)('m_user', ['userProfile'])),
+
   methods: {
     // 点击 dialog 显示隐藏
     vibDialog: function vibDialog() {
@@ -270,7 +273,9 @@ var _default =
     // 点击切换年级确定按钮
     vibDialogSub: function vibDialogSub() {
       this.display = false;
-      this.topClassName = this.className;
+      // 存入vuex
+      this.$store.commit('m_user/saveClassName', this.className);
+      // this.topClassName = this.className
     },
     // 点击历史记录按钮
     goHistoryList: function goHistoryList() {
@@ -279,7 +284,7 @@ var _default =
 
     },
     // 点击反馈中心按钮
-    goFeedback: function goFeedback() {
+    goFeedback: function goFeedback(e) {
       console.log('反馈中心');
     },
     // 作业检查按钮
@@ -291,6 +296,13 @@ var _default =
             src: res.tempImagePath });
 
         } });
+
+
+    },
+    // 获取用户信息
+    getuserInfo: function getuserInfo() {
+      uni.navigateTo({
+        url: '../../subpkg/pages/profile/index' });
 
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
